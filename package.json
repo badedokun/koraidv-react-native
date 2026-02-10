@@ -1,0 +1,116 @@
+{
+  "name": "@koraidv/react-native",
+  "version": "1.0.0",
+  "description": "Kora IDV Identity Verification SDK for React Native",
+  "main": "lib/commonjs/index",
+  "module": "lib/module/index",
+  "types": "lib/typescript/src/index.d.ts",
+  "react-native": "src/index",
+  "source": "src/index",
+  "files": [
+    "src",
+    "lib",
+    "ios",
+    "android",
+    "plugin",
+    "build/plugin",
+    "app.plugin.js",
+    "koraidv-react-native.podspec",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__",
+    "!**/.*"
+  ],
+  "scripts": {
+    "build": "bob build && tsc --project plugin/tsconfig.json",
+    "build:plugin": "tsc --project plugin/tsconfig.json",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "test": "jest",
+    "clean": "del-cli lib build"
+  },
+  "keywords": [
+    "react-native",
+    "identity-verification",
+    "kyc",
+    "idv",
+    "document-verification",
+    "liveness-detection",
+    "koraidv"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/koraidv/koraidv-react-native.git"
+  },
+  "author": "Kora IDV <support@koraidv.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/koraidv/koraidv-react-native/issues"
+  },
+  "homepage": "https://github.com/koraidv/koraidv-react-native#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-native": ">=0.72.0"
+  },
+  "devDependencies": {
+    "@testing-library/react-native": "^12.0.0",
+    "@types/jest": "^29.5.0",
+    "@types/react": "^18.2.0",
+    "@types/react-native": "^0.72.0",
+    "jest": "^29.7.0",
+    "react": "^18.2.0",
+    "react-native": "^0.73.0",
+    "react-native-builder-bob": "^0.23.0",
+    "react-test-renderer": "^18.2.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.3.0"
+  },
+  "jest": {
+    "preset": "react-native",
+    "transform": {
+      "^.+\\.tsx?$": [
+        "ts-jest",
+        {
+          "tsconfig": "tsconfig.json"
+        }
+      ]
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/lib/",
+      "/example/"
+    ]
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json"
+        }
+      ]
+    ]
+  },
+  "codegenConfig": {
+    "name": "KoraIDVReactNativeSpec",
+    "type": "modules",
+    "jsSrcsDir": "src"
+  },
+  "expo": {
+    "configPlugin": true
+  }
+}
