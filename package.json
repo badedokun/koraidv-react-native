@@ -69,7 +69,6 @@
     "typescript": "^5.3.0"
   },
   "jest": {
-    "preset": "react-native",
     "transform": {
       "^.+\\.tsx?$": [
         "ts-jest",
