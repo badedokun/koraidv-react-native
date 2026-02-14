@@ -63,9 +63,11 @@ repositories {
     google()
     mavenCentral()
     maven { url = uri("https://jitpack.io") }
+    flatDir { dirs("libs") }
 }
 
 dependencies {
     implementation("com.facebook.react:react-android:+")
-    implementation("com.github.badedokun:koraidv-koraidv-android:v1.0.3")
+    // Local AAR with redesigned UI (replaces JitPack v1.0.3)
+    implementation(files("libs/koraidv-release.aar"))
 }
