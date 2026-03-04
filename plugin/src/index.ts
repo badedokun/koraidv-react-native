@@ -51,7 +51,7 @@ const withKoraIDVAndroidManifest: ConfigPlugin = (config) => {
     const addFeature = (name: string, required: string) => {
       if (!features.some((f) => f.$?.['android:name'] === name)) {
         features.push({
-          $: { 'android:name': name, 'android:required': required },
+          $: { 'android:name': name, 'android:required': required as 'true' | 'false' },
         });
       }
     };
