@@ -64,8 +64,21 @@ export enum DocumentType {
   // Africa
   GHANA_CARD = 'ghana_card',
   NIGERIA_NIN = 'ng_nin',
+  NIGERIA_DRIVERS_LICENSE = 'ng_drivers_license',
+  GHANA_DRIVERS_LICENSE = 'gh_drivers_license',
   KENYA_ID = 'ke_id',
+  KENYA_DRIVERS_LICENSE = 'ke_drivers_license',
   SOUTH_AFRICA_ID = 'za_id',
+  SOUTH_AFRICA_DRIVERS_LICENSE = 'za_drivers_license',
+
+  // UK
+  UK_DRIVERS_LICENSE = 'uk_drivers_license',
+
+  // Canada
+  CANADA_DRIVERS_LICENSE = 'ca_drivers_license',
+
+  // India
+  INDIA_DRIVERS_LICENSE = 'in_drivers_license',
 }
 
 // ---------------------------------------------------------------------------
