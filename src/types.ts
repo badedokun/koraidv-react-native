@@ -167,6 +167,20 @@ export interface RiskSignal {
 }
 
 // ---------------------------------------------------------------------------
+// Document Quality (forward-declaration for future native SDK support)
+// ---------------------------------------------------------------------------
+
+export interface DocumentQualityResult {
+  qualityScore: number;
+  qualityIssues: string[];
+  details: {
+    textReadability: number;
+    faceQuality: number;
+    imageClarity: number;
+  };
+}
+
+// ---------------------------------------------------------------------------
 // Verification Flow Result
 // ---------------------------------------------------------------------------
 

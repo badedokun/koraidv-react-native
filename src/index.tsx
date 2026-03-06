@@ -33,6 +33,7 @@ export type {
   LivenessVerification,
   ChallengeResult,
   RiskSignal,
+  DocumentQualityResult,
   VerificationFlowResult,
   StartVerificationOptions,
 } from './types';
