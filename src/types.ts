@@ -46,6 +46,13 @@ export type LivenessMode = 'active' | 'passive';
 // Document Types
 // ---------------------------------------------------------------------------
 
+/**
+ * Common document type codes.
+ *
+ * Note: This is a convenience subset. The full list of supported document types
+ * (270+) is fetched dynamically by the native iOS/Android SDKs. New types are
+ * available without SDK updates.
+ */
 export enum DocumentType {
   // US Documents
   US_DRIVERS_LICENSE = 'us_drivers_license',
