@@ -83,6 +83,8 @@ export enum DocumentType {
 
   // Canada
   CANADA_DRIVERS_LICENSE = 'ca_drivers_license',
+  CANADA_PR_CARD = 'ca_pr_card',
+  CANADA_NATIONAL_ID = 'ca_national_id',
 
   // India
   INDIA_DRIVERS_LICENSE = 'in_drivers_license',
