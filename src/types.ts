@@ -55,14 +55,12 @@ export type LivenessMode = 'active' | 'passive';
  */
 export enum DocumentType {
   // US Documents
-  US_PASSPORT = 'us_passport',
   US_DRIVERS_LICENSE = 'us_drivers_license',
   US_STATE_ID = 'us_state_id',
   US_GREEN_CARD = 'us_green_card',
 
-  // Passport (all countries)
+  // Passport (covers all 197 ICAO-compliant countries)
   INTERNATIONAL_PASSPORT = 'international_passport',
-  UK_PASSPORT = 'uk_passport',
 
   // EU ID Cards
   EU_ID_GERMANY = 'eu_id_de',
