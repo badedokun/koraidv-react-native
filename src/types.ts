@@ -78,14 +78,46 @@ export enum DocumentType {
   SOUTH_AFRICA_ID = 'za_id',
   SOUTH_AFRICA_DRIVERS_LICENSE = 'za_drivers_license',
 
+  NIGERIA_VOTERS_CARD = 'ng_voters_card',
+
+  // Liberia
+  LIBERIA_ID = 'lr_id',
+  LIBERIA_DRIVERS_LICENSE = 'lr_drivers_license',
+  LIBERIA_VOTERS_CARD = 'lr_voters_card',
+
+  // Sierra Leone
+  SIERRA_LEONE_ID = 'sl_id',
+  SIERRA_LEONE_DRIVERS_LICENSE = 'sl_drivers_license',
+  SIERRA_LEONE_VOTERS_CARD = 'sl_voters_card',
+
+  // Gambia
+  GAMBIA_ID = 'gm_id',
+  GAMBIA_DRIVERS_LICENSE = 'gm_drivers_license',
+
   // UK
   UK_DRIVERS_LICENSE = 'uk_drivers_license',
+  UK_BRP = 'uk_brp',
 
   // Canada
   CANADA_DRIVERS_LICENSE = 'ca_drivers_license',
+  CANADA_PR_CARD = 'ca_pr_card',
+  CANADA_NATIONAL_ID = 'ca_national_id',
 
   // India
   INDIA_DRIVERS_LICENSE = 'in_drivers_license',
+
+  // EU Residence Permits
+  DE_RESIDENCE_PERMIT = 'de_rp',
+  FR_RESIDENCE_PERMIT = 'fr_rp',
+  IT_RESIDENCE_PERMIT = 'it_rp',
+  ES_RESIDENCE_PERMIT = 'es_rp',
+  IE_RESIDENCE_PERMIT = 'ie_rp',
+  PT_RESIDENCE_PERMIT = 'pt_rp',
+  SE_RESIDENCE_PERMIT = 'se_rp',
+  DK_RESIDENCE_PERMIT = 'dk_rp',
+  NO_RESIDENCE_PERMIT = 'no_rp',
+  FI_RESIDENCE_PERMIT = 'fi_rp',
+  PL_RESIDENCE_PERMIT = 'pl_rp',
 }
 
 // ---------------------------------------------------------------------------
