@@ -37,3 +37,26 @@ export type {
   VerificationFlowResult,
   StartVerificationOptions,
 } from './types';
+
+// Wallet — W3C Verifiable Credentials
+export {
+  KoraWallet,
+  WalletError,
+  DisclosureClaim,
+  DisclosureProfiles,
+  WalletPresentationBuilder,
+  WalletCredentialStore,
+  applyDisclosure,
+  computeAgeOver18,
+  createWalletCredential,
+} from './wallet';
+export type {
+  WalletCredential,
+  WalletCredentialSubject,
+  WalletCredentialStatus,
+  WalletDataIntegrityProof,
+  StoredWalletCredential,
+  WalletPresentation,
+  DisclosureProfile,
+  StorageAdapter,
+} from './wallet';
