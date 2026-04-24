@@ -62,6 +62,37 @@ describe('serializeConfiguration', () => {
     expect(parsed).not.toHaveProperty('timeout');
     expect(parsed).not.toHaveProperty('debugLogging');
   });
+
+  // REQ-005 · Native plugin bridges (ios/KoraIDVReactNative.swift +
+  // android/KoraIDVReactNativeModule.kt) read these two keys off the JSON.
+  // Guard the wire format so either side can't silently diverge.
+  it('serializes resultPageMode as lowercase string', () => {
+    const json = serializeConfiguration({
+      apiKey: 'ck_live_test',
+      tenantId: 'tenant-123',
+      resultPageMode: 'simplified',
+    });
+
+    const parsed = JSON.parse(json);
+    expect(parsed.resultPageMode).toBe('simplified');
+  });
+
+  it('serializes customMessages as a nested object', () => {
+    const json = serializeConfiguration({
+      apiKey: 'ck_live_test',
+      tenantId: 'tenant-123',
+      customMessages: {
+        successTitle: 'All set!',
+        failedMessage: 'Try again.',
+      },
+    });
+
+    const parsed = JSON.parse(json);
+    expect(parsed.customMessages).toEqual({
+      successTitle: 'All set!',
+      failedMessage: 'Try again.',
+    });
+  });
 });
 
 describe('deserializeResult', () => {

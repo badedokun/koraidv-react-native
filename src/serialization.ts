@@ -49,6 +49,12 @@ export function serializeConfiguration(config: KoraIDVConfiguration): string {
   if (config.debugLogging !== undefined) {
     payload.debugLogging = config.debugLogging;
   }
+  if (config.resultPageMode !== undefined) {
+    payload.resultPageMode = config.resultPageMode;
+  }
+  if (config.customMessages !== undefined) {
+    payload.customMessages = config.customMessages;
+  }
 
   return JSON.stringify(payload);
 }
