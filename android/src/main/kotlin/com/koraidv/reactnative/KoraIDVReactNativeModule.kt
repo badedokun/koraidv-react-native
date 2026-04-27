@@ -14,6 +14,8 @@ import com.koraidv.sdk.KoraException
 import com.koraidv.sdk.KoraIDV
 import com.koraidv.sdk.KoraTheme
 import com.koraidv.sdk.LivenessMode
+import com.koraidv.sdk.ResultPageMessages
+import com.koraidv.sdk.ResultPageMode
 import com.koraidv.sdk.Verification
 import com.koraidv.sdk.VerificationRequest
 import com.koraidv.sdk.VerificationTier
@@ -144,6 +146,24 @@ class KoraIDVReactNativeModule(
             KoraTheme()
         }
 
+        // REQ-005 · resultPageMode + customMessages cross the bridge as strings
+        // and a nested object. Unknown values fall back to the SDK default
+        // (DETAILED) so a stale dashboard setting can't crash the bridge.
+        val resultPageMode = when (json.optString("resultPageMode")) {
+            "simplified" -> ResultPageMode.SIMPLIFIED
+            else -> ResultPageMode.DETAILED
+        }
+        val customMessages = json.optJSONObject("customMessages")?.let { cm ->
+            ResultPageMessages(
+                successTitle = cm.optString("successTitle").ifEmpty { null },
+                successMessage = cm.optString("successMessage").ifEmpty { null },
+                failedTitle = cm.optString("failedTitle").ifEmpty { null },
+                failedMessage = cm.optString("failedMessage").ifEmpty { null },
+                reviewTitle = cm.optString("reviewTitle").ifEmpty { null },
+                reviewMessage = cm.optString("reviewMessage").ifEmpty { null }
+            )
+        }
+
         val config = Configuration(
             apiKey = apiKey,
             tenantId = tenantId,
@@ -152,7 +172,9 @@ class KoraIDVReactNativeModule(
             livenessMode = livenessMode,
             theme = theme,
             timeout = json.optLong("timeout", 600),
-            debugLogging = json.optBoolean("debugLogging", false)
+            debugLogging = json.optBoolean("debugLogging", false),
+            resultPageMode = resultPageMode,
+            customMessages = customMessages
         )
 
         KoraIDV.configure(config)

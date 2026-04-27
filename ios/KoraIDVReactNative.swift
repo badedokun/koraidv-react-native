@@ -125,6 +125,24 @@ private extension KoraIDVReactNative {
       config.debugLogging = debug
     }
 
+    // REQ-005 · resultPageMode + customMessages cross the bridge as strings
+    // and a nested object. Unknown values fall back to the SDK default
+    // (.detailed) so a stale dashboard setting can't crash the bridge.
+    if let mode = json["resultPageMode"] as? String,
+       let parsed = ResultPageMode(rawValue: mode) {
+      config.resultPageMode = parsed
+    }
+    if let messagesJSON = json["customMessages"] as? [String: Any] {
+      config.customMessages = ResultPageMessages(
+        successTitle: messagesJSON["successTitle"] as? String,
+        successMessage: messagesJSON["successMessage"] as? String,
+        failedTitle: messagesJSON["failedTitle"] as? String,
+        failedMessage: messagesJSON["failedMessage"] as? String,
+        reviewTitle: messagesJSON["reviewTitle"] as? String,
+        reviewMessage: messagesJSON["reviewMessage"] as? String
+      )
+    }
+
     KoraIDV.configure(with: config)
   }
 

@@ -36,11 +36,32 @@ export interface KoraIDVConfiguration {
 
   /** Enable debug logging (default: false) */
   debugLogging?: boolean;
+
+  /**
+   * Result page mode (REQ-005). In 'simplified' mode the SDK shows only
+   * Success / Failed / Review with no scores or metrics. Overrides the
+   * tenant-level `result_page_mode` setting when provided.
+   */
+  resultPageMode?: ResultPageMode;
+
+  /** Optional per-outcome copy overrides for the simplified result page. */
+  customMessages?: ResultPageMessages;
 }
 
 export type Environment = 'production' | 'sandbox';
 
 export type LivenessMode = 'active' | 'passive';
+
+export type ResultPageMode = 'detailed' | 'simplified';
+
+export interface ResultPageMessages {
+  successTitle?: string;
+  successMessage?: string;
+  failedTitle?: string;
+  failedMessage?: string;
+  reviewTitle?: string;
+  reviewMessage?: string;
+}
 
 // ---------------------------------------------------------------------------
 // Document Types
