@@ -40,14 +40,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/koraidv/koraidv-react-native.git"
+    "url": "https://github.com/badedokun/koraidv-react-native.git"
   },
   "author": "Kora IDV <support@koraidv.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/koraidv/koraidv-react-native/issues"
+    "url": "https://github.com/badedokun/koraidv-react-native/issues"
   },
-  "homepage": "https://github.com/koraidv/koraidv-react-native#readme",
+  "homepage": "https://github.com/badedokun/koraidv-react-native#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
