@@ -28,6 +28,7 @@ export type {
   VerificationTier,
   VerificationStatus,
   Verification,
+  VerificationScores,
   DocumentVerification,
   FaceVerification,
   LivenessVerification,

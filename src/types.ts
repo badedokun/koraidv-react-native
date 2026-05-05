@@ -182,11 +182,28 @@ export interface Verification {
   documentVerification: DocumentVerification | null;
   faceVerification: FaceVerification | null;
   livenessVerification: LivenessVerification | null;
+  /** Per-feature score breakdown (0-100). Mirrors iOS / Android / Flutter. */
+  scores: VerificationScores | null;
   riskSignals: RiskSignal[] | null;
   riskScore: number | null;
   createdAt: string;
   updatedAt: string;
   completedAt: string | null;
+}
+
+/**
+ * Per-feature verification scores (0-100 scale).
+ * `overall` is the fused risk score (also exposed top-level as `Verification.riskScore`).
+ */
+export interface VerificationScores {
+  documentQuality: number;
+  documentAuth: number;
+  faceMatch: number;
+  liveness: number;
+  nameMatch: number;
+  dataConsistency: number;
+  screening: number;
+  overall: number;
 }
 
 export interface DocumentVerification {
