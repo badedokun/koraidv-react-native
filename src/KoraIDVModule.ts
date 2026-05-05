@@ -126,7 +126,7 @@ export const KoraIDVModule = {
    * SDK version.
    */
   get version(): string {
-    return '1.5.0';
+    return '1.5.2';
   },
 };
 

@@ -226,8 +226,10 @@ describe('KoraIDVModule', () => {
   });
 
   describe('version', () => {
-    it('returns version string', () => {
-      expect(KoraIDVModule.version).toBe('1.0.0');
+    it('returns the published SDK version', () => {
+      // Pin to current release. Bump in lockstep with package.json +
+      // KoraIDVModule.ts.
+      expect(KoraIDVModule.version).toBe('1.5.2');
     });
   });
 });

@@ -9,6 +9,7 @@
 import type {
   KoraIDVConfiguration,
   Verification,
+  VerificationScores,
   VerificationFlowResult,
   DocumentVerification,
   FaceVerification,
@@ -122,6 +123,9 @@ function deserializeVerification(raw: Record<string, unknown>): Verification {
           raw.livenessVerification as Record<string, unknown>
         )
       : null,
+    scores: raw.scores
+      ? deserializeVerificationScores(raw.scores as Record<string, unknown>)
+      : null,
     riskSignals: raw.riskSignals
       ? (raw.riskSignals as Record<string, unknown>[]).map(
           deserializeRiskSignal
@@ -191,5 +195,20 @@ function deserializeRiskSignal(raw: Record<string, unknown>): RiskSignal {
     code: raw.code as string,
     severity: raw.severity as string,
     message: raw.message as string,
+  };
+}
+
+function deserializeVerificationScores(
+  raw: Record<string, unknown>
+): VerificationScores {
+  return {
+    documentQuality: (raw.documentQuality as number) ?? 0,
+    documentAuth: (raw.documentAuth as number) ?? 0,
+    faceMatch: (raw.faceMatch as number) ?? 0,
+    liveness: (raw.liveness as number) ?? 0,
+    nameMatch: (raw.nameMatch as number) ?? 0,
+    dataConsistency: (raw.dataConsistency as number) ?? 0,
+    screening: (raw.screening as number) ?? 0,
+    overall: (raw.overall as number) ?? 0,
   };
 }

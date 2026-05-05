@@ -182,11 +182,28 @@ export interface Verification {
   documentVerification: DocumentVerification | null;
   faceVerification: FaceVerification | null;
   livenessVerification: LivenessVerification | null;
+  /** Per-feature score breakdown (0-100). Mirrors iOS / Android / Flutter. */
+  scores: VerificationScores | null;
   riskSignals: RiskSignal[] | null;
   riskScore: number | null;
   createdAt: string;
   updatedAt: string;
   completedAt: string | null;
+}
+
+/**
+ * Per-feature verification scores (0-100 scale).
+ * `overall` is the fused risk score (also exposed top-level as `Verification.riskScore`).
+ */
+export interface VerificationScores {
+  documentQuality: number;
+  documentAuth: number;
+  faceMatch: number;
+  liveness: number;
+  nameMatch: number;
+  dataConsistency: number;
+  screening: number;
+  overall: number;
 }
 
 export interface DocumentVerification {
@@ -297,6 +314,8 @@ export enum KoraErrorCode {
   DOCUMENT_NOT_DETECTED = 'DOCUMENT_NOT_DETECTED',
   DOCUMENT_TYPE_NOT_SUPPORTED = 'DOCUMENT_TYPE_NOT_SUPPORTED',
   MRZ_READ_FAILED = 'MRZ_READ_FAILED',
+  NFC_NOT_AVAILABLE = 'NFC_NOT_AVAILABLE',
+  NFC_READ_FAILED = 'NFC_READ_FAILED',
 
   // Face errors
   FACE_NOT_DETECTED = 'FACE_NOT_DETECTED',
@@ -350,6 +369,8 @@ const errorMessages: Record<KoraErrorCode, string> = {
   [KoraErrorCode.DOCUMENT_NOT_DETECTED]: 'Document not detected. Position document in frame.',
   [KoraErrorCode.DOCUMENT_TYPE_NOT_SUPPORTED]: 'Document type not supported.',
   [KoraErrorCode.MRZ_READ_FAILED]: 'Could not read document MRZ.',
+  [KoraErrorCode.NFC_NOT_AVAILABLE]: 'NFC is not available on this device.',
+  [KoraErrorCode.NFC_READ_FAILED]: 'NFC read failed. Hold device steady against the chip.',
   [KoraErrorCode.FACE_NOT_DETECTED]: 'Face not detected. Position face in frame.',
   [KoraErrorCode.MULTIPLE_FACES_DETECTED]: 'Multiple faces detected. Show only one face.',
   [KoraErrorCode.FACE_MATCH_FAILED]: 'Face match failed.',

@@ -115,11 +115,27 @@ export interface Verification {
     documentVerification: DocumentVerification | null;
     faceVerification: FaceVerification | null;
     livenessVerification: LivenessVerification | null;
+    /** Per-feature score breakdown (0-100). Mirrors iOS / Android / Flutter. */
+    scores: VerificationScores | null;
     riskSignals: RiskSignal[] | null;
     riskScore: number | null;
     createdAt: string;
     updatedAt: string;
     completedAt: string | null;
+}
+/**
+ * Per-feature verification scores (0-100 scale).
+ * `overall` is the fused risk score (also exposed top-level as `Verification.riskScore`).
+ */
+export interface VerificationScores {
+    documentQuality: number;
+    documentAuth: number;
+    faceMatch: number;
+    liveness: number;
+    nameMatch: number;
+    dataConsistency: number;
+    screening: number;
+    overall: number;
 }
 export interface DocumentVerification {
     documentType: string;
@@ -197,6 +213,8 @@ export declare enum KoraErrorCode {
     DOCUMENT_NOT_DETECTED = "DOCUMENT_NOT_DETECTED",
     DOCUMENT_TYPE_NOT_SUPPORTED = "DOCUMENT_TYPE_NOT_SUPPORTED",
     MRZ_READ_FAILED = "MRZ_READ_FAILED",
+    NFC_NOT_AVAILABLE = "NFC_NOT_AVAILABLE",
+    NFC_READ_FAILED = "NFC_READ_FAILED",
     FACE_NOT_DETECTED = "FACE_NOT_DETECTED",
     MULTIPLE_FACES_DETECTED = "MULTIPLE_FACES_DETECTED",
     FACE_MATCH_FAILED = "FACE_MATCH_FAILED",
