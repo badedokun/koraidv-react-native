@@ -297,6 +297,8 @@ export enum KoraErrorCode {
   DOCUMENT_NOT_DETECTED = 'DOCUMENT_NOT_DETECTED',
   DOCUMENT_TYPE_NOT_SUPPORTED = 'DOCUMENT_TYPE_NOT_SUPPORTED',
   MRZ_READ_FAILED = 'MRZ_READ_FAILED',
+  NFC_NOT_AVAILABLE = 'NFC_NOT_AVAILABLE',
+  NFC_READ_FAILED = 'NFC_READ_FAILED',
 
   // Face errors
   FACE_NOT_DETECTED = 'FACE_NOT_DETECTED',
@@ -350,6 +352,8 @@ const errorMessages: Record<KoraErrorCode, string> = {
   [KoraErrorCode.DOCUMENT_NOT_DETECTED]: 'Document not detected. Position document in frame.',
   [KoraErrorCode.DOCUMENT_TYPE_NOT_SUPPORTED]: 'Document type not supported.',
   [KoraErrorCode.MRZ_READ_FAILED]: 'Could not read document MRZ.',
+  [KoraErrorCode.NFC_NOT_AVAILABLE]: 'NFC is not available on this device.',
+  [KoraErrorCode.NFC_READ_FAILED]: 'NFC read failed. Hold device steady against the chip.',
   [KoraErrorCode.FACE_NOT_DETECTED]: 'Face not detected. Position face in frame.',
   [KoraErrorCode.MULTIPLE_FACES_DETECTED]: 'Multiple faces detected. Show only one face.',
   [KoraErrorCode.FACE_MATCH_FAILED]: 'Face match failed.',
