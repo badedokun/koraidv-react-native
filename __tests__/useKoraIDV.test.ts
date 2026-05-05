@@ -93,6 +93,7 @@ describe('useKoraIDV', () => {
           documentVerification: null,
           faceVerification: null,
           livenessVerification: null,
+          scores: null,
           riskSignals: null,
           riskScore: null,
           createdAt: '2024-01-15T10:00:00Z',
