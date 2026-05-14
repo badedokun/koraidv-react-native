@@ -18,21 +18,66 @@ yarn add @koraidv/react-native
 
 ### iOS
 
+The SDK depends on the native `KoraIDV` pod, which isn't yet on
+CocoaPods trunk. Add the git source to your `ios/Podfile` **inside the
+`target` block, before `use_react_native!`**:
+
+```ruby
+pod 'KoraIDV',
+    :git => 'https://github.com/badedokun/koraidv-koraidv-ios.git',
+    :tag => '1.5.2'
+```
+
+Camera permission is required — add to your `Info.plist`:
+
+```xml
+<key>NSCameraUsageDescription</key>
+<string>This app uses the camera to capture identity documents and verify your selfie.</string>
+```
+
+Then:
+
 ```bash
 cd ios && pod install
 ```
 
 ### Android
 
-Add JitPack to your project-level `settings.gradle`:
+The SDK ships an AAR compiled with `isCoreLibraryDesugaringEnabled = true`
+and uses `java.time` APIs. Consumers must enable the same feature in
+their app module — otherwise the build fails with
+`Dependency 'koraidv-release.aar' requires core library desugaring to
+be enabled for :app.`
+
+Edit `android/app/build.gradle`:
 
 ```groovy
-dependencyResolutionManagement {
-    repositories {
-        maven { url 'https://jitpack.io' }
+android {
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 }
+
+dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
+}
 ```
+
+Add camera permissions to `android/app/src/main/AndroidManifest.xml`:
+
+```xml
+<uses-permission android:name="android.permission.CAMERA" />
+<uses-feature android:name="android.hardware.camera" android:required="true" />
+```
+
+### Worked example
+
+A full end-to-end RN 0.79 example app lives in [`example/`](./example/).
+It builds clean on both platforms and is the canonical "this works"
+reference — see [`example/SETUP.md`](./example/SETUP.md) for the
+step-by-step procedure we verified.
 
 ## Usage
 

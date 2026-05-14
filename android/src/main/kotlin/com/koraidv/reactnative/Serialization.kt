@@ -48,18 +48,14 @@ object Serialization {
             put("tier", v.tier)
             put("status", v.status.value)
 
-            if (v.documentVerification != null) {
-                put("documentVerification", serializeDocumentVerification(v.documentVerification))
-            }
-            if (v.faceVerification != null) {
-                put("faceVerification", serializeFaceVerification(v.faceVerification))
-            }
-            if (v.livenessVerification != null) {
-                put("livenessVerification", serializeLivenessVerification(v.livenessVerification))
-            }
-            if (v.riskSignals != null) {
-                put("riskSignals", serializeRiskSignals(v.riskSignals))
-            }
+            // Snapshot cross-module public properties into local vals so the
+            // Kotlin compiler can smart-cast away the nullability (smart-cast
+            // is otherwise refused on public properties from another module
+            // because the value is theoretically observable to change).
+            v.documentVerification?.let { put("documentVerification", serializeDocumentVerification(it)) }
+            v.faceVerification?.let { put("faceVerification", serializeFaceVerification(it)) }
+            v.livenessVerification?.let { put("livenessVerification", serializeLivenessVerification(it)) }
+            v.riskSignals?.let { put("riskSignals", serializeRiskSignals(it)) }
             putOpt("riskScore", v.riskScore)
             put("createdAt", formatDate(v.createdAt))
             put("updatedAt", formatDate(v.updatedAt))
@@ -78,9 +74,7 @@ object Serialization {
             putOpt("issuingCountry", dv.issuingCountry)
             putOpt("mrzValid", dv.mrzValid)
             putOpt("authenticityScore", dv.authenticityScore)
-            if (dv.extractedFields != null) {
-                put("extractedFields", JSONObject(dv.extractedFields))
-            }
+            dv.extractedFields?.let { put("extractedFields", JSONObject(it)) }
         }
     }
 
@@ -96,9 +90,9 @@ object Serialization {
         return JSONObject().apply {
             put("livenessScore", lv.livenessScore)
             put("isLive", lv.isLive)
-            if (lv.challengeResults != null) {
+            lv.challengeResults?.let { challenges ->
                 val arr = JSONArray()
-                for (cr in lv.challengeResults) {
+                for (cr in challenges) {
                     arr.put(serializeChallengeResult(cr))
                 }
                 put("challengeResults", arr)

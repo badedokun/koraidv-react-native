@@ -2,10 +2,6 @@ import Foundation
 import SwiftUI
 import KoraIDV
 
-#if RCT_NEW_ARCH_ENABLED
-import KoraIDVReactNativeSpec
-#endif
-
 /// React Native bridge module for KoraIDV iOS SDK.
 ///
 /// Exposes three methods across the bridge:
@@ -17,7 +13,10 @@ import KoraIDVReactNativeSpec
 /// Promise rejection with (code, message).
 ///
 /// Supports both Old Architecture (RCTBridgeModule) and New Architecture
-/// (TurboModule via NativeKoraIDVReactNativeSpec codegen protocol).
+/// — RN's TurboModule interop layer picks up the @objc-exposed methods
+/// for both. The codegen-generated NativeKoraIDVSpec protocol is consumed
+/// automatically through the Obj-C bridge; we don't conform to it from
+/// Swift because it's a C++/Obj-C protocol that isn't a Swift module.
 @objc(KoraIDVReactNative)
 class KoraIDVReactNative: NSObject {
 
@@ -235,10 +234,7 @@ private extension KoraIDVReactNative {
   }
 }
 
-// MARK: - New Architecture (TurboModule) conformance
-
-#if RCT_NEW_ARCH_ENABLED
-extension KoraIDVReactNative: NativeKoraIDVReactNativeSpec {
-}
-#endif
+// New Architecture conformance is supplied by the codegen-generated
+// NativeKoraIDVSpec Obj-C protocol, picked up via the RCTBridgeModule
+// interop layer. No explicit Swift extension required.
 

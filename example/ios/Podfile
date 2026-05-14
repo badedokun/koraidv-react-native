@@ -1,0 +1,45 @@
+# Resolve react_native_pods.rb with node to allow for hoisting
+require Pod::Executable.execute_command('node', ['-p',
+  'require.resolve(
+    "react-native/scripts/react_native_pods.rb",
+    {paths: [process.argv[1]]},
+  )', __dir__]).strip
+
+platform :ios, min_ios_version_supported
+prepare_react_native_project!
+
+linkage = ENV['USE_FRAMEWORKS']
+if linkage != nil
+  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+  use_frameworks! :linkage => linkage.to_sym
+end
+
+target 'KoraIDVExample' do
+  config = use_native_modules!
+
+  # The koraidv-react-native podspec depends on `KoraIDV ~> 1.0`. That pod
+  # is not on CocoaPods trunk yet, so consumers point at the public iOS SDK
+  # repo or a local checkout. The example uses a local path; downstream
+  # consumers (e.g. BanffPay) add the git form below to their own Podfile:
+  #
+  #   pod 'KoraIDV',
+  #     :git => 'https://github.com/badedokun/koraidv-koraidv-ios.git',
+  #     :tag => '1.5.2'
+  pod 'KoraIDV', :path => '../../../koraidv-ios'
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # An absolute path to your application root.
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  )
+
+  post_install do |installer|
+    # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
+    react_native_post_install(
+      installer,
+      config[:reactNativePath],
+      :mac_catalyst_enabled => false,
+      # :ccache_enabled => true
+    )
+  end
+end
