@@ -25,7 +25,7 @@ CocoaPods trunk. Add the git source to your `ios/Podfile` **inside the
 ```ruby
 pod 'KoraIDV',
     :git => 'https://github.com/badedokun/koraidv-koraidv-ios.git',
-    :tag => '1.5.2'
+    :tag => 'v1.5.3'
 ```
 
 Camera permission is required — add to your `Info.plist`:

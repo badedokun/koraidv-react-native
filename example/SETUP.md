@@ -143,7 +143,7 @@ before `use_react_native!`**:
 ```ruby
 pod 'KoraIDV',
     :git => 'https://github.com/badedokun/koraidv-koraidv-ios.git',
-    :tag => '1.5.2'
+    :tag => 'v1.5.3'
 ```
 
 This example uses a local-path reference instead so it tracks the
