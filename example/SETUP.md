@@ -24,7 +24,7 @@ your `android/app/build.gradle`, `android/app/src/main/AndroidManifest.xml`,
 | Android SDK | platforms 24–36, build-tools 35.0.0 |
 | React Native | 0.79.7 |
 | `@react-native-community/cli` | 18.0.0 |
-| `@koraidv/react-native` | 1.5.2 |
+| `@koraidv/react-native` | 1.5.4 |
 
 ---
 
@@ -230,7 +230,7 @@ export KORAIDV_SANDBOX_TENANT_ID='<your-tenant-uuid>'
 | Symptom | Cause | Fix |
 |---|---|---|
 | `Dependency 'koraidv-release.aar' requires core library desugaring to be enabled for :app.` | Missing `coreLibraryDesugaring` config | §3.1 |
-| `Smart cast to '…' is impossible, because '…' is a public API property declared in different module.` | Pre-1.5.3 SDK bug. | Fixed in `main` after 1.5.2 — pull `main` or wait for the next release. |
+| `Smart cast to '…' is impossible, because '…' is a public API property declared in different module.` | Pre-1.5.3 SDK bug, fixed in 1.5.4. | Upgrade `@koraidv/react-native` to ≥ 1.5.4. |
 | `Unable to find a specification for 'KoraIDV (~> 1.0)'` during `pod install` | Stale Specs repo cache | `pod repo update`, then `pod install` again. §4.1 shows the trunk form. |
 | iOS app crashes on first camera access with `NSInvalidArgumentException` | Missing `NSCameraUsageDescription` | §4.2 |
-| `Unable to find module dependency: 'KoraIDVReactNativeSpec'` | Pre-1.5.3 SDK bug — Swift wrapper imported a non-existent codegen module | Fixed in `main` after 1.5.2 — pull `main` or wait for the next release. |
+| `Unable to find module dependency: 'KoraIDVReactNativeSpec'` | Pre-1.5.3 SDK bug — Swift wrapper imported a non-existent codegen module | Upgrade `@koraidv/react-native` to ≥ 1.5.4. |
