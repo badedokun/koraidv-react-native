@@ -1,3 +1,34 @@
+# Kora IDV — React Native integration example
+
+A bare RN 0.79.7 app pre-wired against `@koraidv/react-native` v1.5.4 and
+the `KoraIDV` pod (CocoaPods trunk). Builds clean on both iOS and Android
+out of the box.
+
+**→ Start with [`SETUP.md`](./SETUP.md)** for the step-by-step integration
+guide (Android core-library desugaring, iOS Podfile + Info.plist, the
+build commands, and a troubleshooting cheat-sheet). The rest of this file
+is the stock React Native CLI boilerplate.
+
+Quick start:
+
+```bash
+npm install
+cd ios && pod install && cd ..
+
+# Run on Android
+npm run android
+
+# Or run on iOS
+npm run ios
+```
+
+To exercise `KoraIDV.startVerification` against the sandbox, set
+`KORAIDV_SANDBOX_API_KEY` and `KORAIDV_SANDBOX_TENANT_ID` in your
+environment before `npm start`. Sign up at https://sandbox.korastratum.com
+for credentials.
+
+---
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
