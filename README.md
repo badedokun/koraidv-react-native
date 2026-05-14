@@ -18,14 +18,12 @@ yarn add @koraidv/react-native
 
 ### iOS
 
-The SDK depends on the native `KoraIDV` pod, which isn't yet on
-CocoaPods trunk. Add the git source to your `ios/Podfile` **inside the
-`target` block, before `use_react_native!`**:
+The SDK depends on the native `KoraIDV` pod (published on CocoaPods
+trunk). Add to your `ios/Podfile` **inside the `target` block, before
+`use_react_native!`**:
 
 ```ruby
-pod 'KoraIDV',
-    :git => 'https://github.com/badedokun/koraidv-koraidv-ios.git',
-    :tag => 'v1.5.3'
+pod 'KoraIDV', '~> 1.5'
 ```
 
 Camera permission is required — add to your `Info.plist`:

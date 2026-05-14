@@ -135,19 +135,16 @@ A clean run completes in ~45s on a warm cache.
 
 ### 4.1 Add `KoraIDV` to your Podfile
 
-The `koraidv-react-native` podspec depends on `KoraIDV ~> 1.0`. That
-pod is not yet on CocoaPods trunk, so consumers point at the public
-iOS SDK repo. Add to your `ios/Podfile` **inside the `target` block,
-before `use_react_native!`**:
+The `koraidv-react-native` podspec depends on `KoraIDV ~> 1.0`, which
+is published on CocoaPods trunk. Add to your `ios/Podfile` **inside
+the `target` block, before `use_react_native!`**:
 
 ```ruby
-pod 'KoraIDV',
-    :git => 'https://github.com/badedokun/koraidv-koraidv-ios.git',
-    :tag => 'v1.5.3'
+pod 'KoraIDV', '~> 1.5'
 ```
 
 This example uses a local-path reference instead so it tracks the
-in-repo SDK:
+in-repo SDK during development:
 
 ```ruby
 pod 'KoraIDV', :path => '../../../koraidv-ios'
@@ -234,6 +231,6 @@ export KORAIDV_SANDBOX_TENANT_ID='<your-tenant-uuid>'
 |---|---|---|
 | `Dependency 'koraidv-release.aar' requires core library desugaring to be enabled for :app.` | Missing `coreLibraryDesugaring` config | §3.1 |
 | `Smart cast to '…' is impossible, because '…' is a public API property declared in different module.` | Pre-1.5.3 SDK bug. | Fixed in `main` after 1.5.2 — pull `main` or wait for the next release. |
-| `Unable to find a specification for 'KoraIDV (~> 1.0)'` during `pod install` | No source for `KoraIDV` in your Podfile | §4.1 |
+| `Unable to find a specification for 'KoraIDV (~> 1.0)'` during `pod install` | Stale Specs repo cache | `pod repo update`, then `pod install` again. §4.1 shows the trunk form. |
 | iOS app crashes on first camera access with `NSInvalidArgumentException` | Missing `NSCameraUsageDescription` | §4.2 |
 | `Unable to find module dependency: 'KoraIDVReactNativeSpec'` | Pre-1.5.3 SDK bug — Swift wrapper imported a non-existent codegen module | Fixed in `main` after 1.5.2 — pull `main` or wait for the next release. |
