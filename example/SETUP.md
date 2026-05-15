@@ -184,14 +184,82 @@ Expect `** BUILD SUCCEEDED **` on the final line.
 
 ## 5. JS integration
 
-Minimal exercise of the bridge:
+The SDK ships two API surfaces. Most React Native apps want the
+**Provider + hook** pattern; the **imperative API** is there for
+non-React flows or one-off calls outside the React tree.
+
+### 5.1 Recommended: `<KoraIDVProvider>` + `useKoraIDV()`
+
+Mount the provider once at your app root. Every screen inside the
+provider tree can then call `useKoraIDV()` to launch and observe a
+verification flow.
+
+```tsx
+// App.tsx — root of your app
+import {KoraIDVProvider} from '@koraidv/react-native';
+
+export default function App() {
+  return (
+    <KoraIDVProvider
+      apiKey={process.env.KORAIDV_API_KEY!}      // ck_live_… or kora_sandbox_…
+      tenantId={process.env.KORAIDV_TENANT_ID!}
+      config={{environment: 'sandbox'}}           // or 'production'
+    >
+      <NavigationContainer>
+        <RootStack />
+      </NavigationContainer>
+    </KoraIDVProvider>
+  );
+}
+```
+
+Then in any screen:
+
+```tsx
+import {useKoraIDV} from '@koraidv/react-native';
+
+function VerifyScreen() {
+  const {startVerification, verification, error, isLoading, isCancelled, reset}
+    = useKoraIDV();
+
+  if (isLoading) return <Loading />;
+  if (error) return <ErrorView error={error} onRetry={reset} />;
+  if (verification) return <ResultView verification={verification} />;
+  if (isCancelled) return <CancelledView onRetry={reset} />;
+
+  return (
+    <Button
+      title="Begin Verification"
+      onPress={() => startVerification(`user-${userId}`, 'standard')}
+    />
+  );
+}
+```
+
+**`verification` is the result slot.** It starts at `null` and only
+gets a value after `startVerification()` resolves successfully — seeing
+`null` before the user taps Begin is the correct initial state, not a
+bug. Don't log it on every render to verify the bridge; use
+`useEffect(() => { … }, [verification])` instead.
+
+**Calling `useKoraIDV()` outside the provider throws.** If you see
+`useKoraIDV must be used within a KoraIDVProvider` in a redbox or as a
+silent crash on launch, the screen is mounted in a navigator that
+sits outside `<KoraIDVProvider>`. Move the provider higher in the
+tree — typically wrapping `NavigationContainer` at the app root.
+
+### 5.2 Imperative API (non-React contexts)
+
+If you need to fire a verification from a saga, background task, or
+any code path that isn't inside a React component, use the imperative
+module directly:
 
 ```tsx
 import {KoraIDV} from '@koraidv/react-native';
 
 await KoraIDV.configure({
-  apiKey: process.env.KORAIDV_SANDBOX_API_KEY!,
-  tenantId: process.env.KORAIDV_SANDBOX_TENANT_ID!,
+  apiKey: process.env.KORAIDV_API_KEY!,
+  tenantId: process.env.KORAIDV_TENANT_ID!,
   environment: 'sandbox',
 });
 
@@ -201,8 +269,12 @@ const result = await KoraIDV.startVerification({
 });
 ```
 
-See `App.tsx` for the full example with state handling and an error
-surface.
+`KoraIDV.configure()` and `<KoraIDVProvider>` can coexist — they
+write to the same underlying native config. Pick whichever fits the
+call site.
+
+See `App.tsx` in this example for the imperative-API path; see your
+own app's root for the provider pattern.
 
 ## 6. Run the example
 
@@ -234,3 +306,5 @@ export KORAIDV_SANDBOX_TENANT_ID='<your-tenant-uuid>'
 | `Unable to find a specification for 'KoraIDV (~> 1.0)'` during `pod install` | Stale Specs repo cache | `pod repo update`, then `pod install` again. §4.1 shows the trunk form. |
 | iOS app crashes on first camera access with `NSInvalidArgumentException` | Missing `NSCameraUsageDescription` | §4.2 |
 | `Unable to find module dependency: 'KoraIDVReactNativeSpec'` | Pre-1.5.3 SDK bug — Swift wrapper imported a non-existent codegen module | Upgrade `@koraidv/react-native` to ≥ 1.5.4. |
+| App crashes on launch / `useKoraIDV must be used within a KoraIDVProvider` | Screen calls `useKoraIDV()` but no `<KoraIDVProvider>` mounted above it | Wrap your app root (typically around `NavigationContainer`) with `<KoraIDVProvider apiKey tenantId config>`. §5.1 |
+| `verification` is `null` even after the user finished a flow | Logging on every render — log fires before `startVerification()` resolves | Move the log behind `useEffect(() => { … }, [verification])`. `null` is the correct initial state. §5.1 |
