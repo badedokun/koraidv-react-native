@@ -85,7 +85,7 @@ step-by-step procedure we verified.
 import { KoraIDV, DocumentType } from '@koraidv/react-native';
 
 KoraIDV.configure({
-  apiKey: 'ck_live_xxx',
+  apiKey: 'sk_live_xxx',
   tenantId: 'your-tenant-uuid',
   documentTypes: [DocumentType.INTERNATIONAL_PASSPORT, DocumentType.GHANA_CARD],
   livenessMode: 'active',
@@ -105,7 +105,7 @@ import { KoraIDVProvider, useKoraIDV } from '@koraidv/react-native';
 
 function App() {
   return (
-    <KoraIDVProvider apiKey="ck_live_xxx" tenantId="your-tenant-uuid">
+    <KoraIDVProvider apiKey="sk_live_xxx" tenantId="your-tenant-uuid">
       <VerifyScreen />
     </KoraIDVProvider>
   );
@@ -128,7 +128,7 @@ function VerifyScreen() {
 ```tsx
 import { KoraIDVProvider, VerificationFlow } from '@koraidv/react-native';
 
-<KoraIDVProvider apiKey="ck_live_xxx" tenantId="your-tenant-uuid">
+<KoraIDVProvider apiKey="sk_live_xxx" tenantId="your-tenant-uuid">
   <VerificationFlow
     externalId="user-123"
     onComplete={(v) => console.log(v.status)}
