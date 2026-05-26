@@ -46,6 +46,17 @@ export interface KoraIDVConfiguration {
 
   /** Optional per-outcome copy overrides for the simplified result page. */
   customMessages?: ResultPageMessages;
+
+  /**
+   * Enable animated visual guides on the capture and liveness screens
+   * (default: false). The native SDKs ship Canvas-drawn illustrations for
+   * document-front, document-back, selfie, NFC, and each liveness
+   * challenge (turn left/right, look up/down, smile, blink). They run
+   * on the platform renderer with no extra assets. Existed in the native
+   * SDKs since v1.3.0 but wasn't reachable from React Native until
+   * 2026-05-25 because the bridge didn't expose this toggle.
+   */
+  showVisualGuides?: boolean;
 }
 
 export type Environment = 'production' | 'sandbox';

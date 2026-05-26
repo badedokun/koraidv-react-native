@@ -174,7 +174,12 @@ class KoraIDVReactNativeModule(
             timeout = json.optLong("timeout", 600),
             debugLogging = json.optBoolean("debugLogging", false),
             resultPageMode = resultPageMode,
-            customMessages = customMessages
+            customMessages = customMessages,
+            // Opt-in (default false in SDK) — REQ-003 Canvas-drawn capture +
+            // liveness onboarding guides. Existed since v1.3.0 of the
+            // native SDK but wasn't reachable from React Native until now;
+            // the bridge silently dropped this field on the way through.
+            showVisualGuides = json.optBoolean("showVisualGuides", false)
         )
 
         KoraIDV.configure(config)

@@ -56,6 +56,9 @@ export function serializeConfiguration(config: KoraIDVConfiguration): string {
   if (config.customMessages !== undefined) {
     payload.customMessages = config.customMessages;
   }
+  if (config.showVisualGuides !== undefined) {
+    payload.showVisualGuides = config.showVisualGuides;
+  }
 
   return JSON.stringify(payload);
 }
