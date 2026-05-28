@@ -124,6 +124,15 @@ private extension KoraIDVReactNative {
       config.debugLogging = debug
     }
 
+    // REQ-003 · showVisualGuides — typed contract through to the SDK.
+    // iOS doesn't yet render the visual guides (Android v1.3.0+ feature
+    // gated on the same field). Accepting the flag here means RN consumers
+    // can opt in uniformly; iOS will visually no-op until the SwiftUI
+    // equivalent of koraidv-android/.../VisualGuides.kt lands.
+    if let visualGuides = json["showVisualGuides"] as? Bool {
+      config.showVisualGuides = visualGuides
+    }
+
     // REQ-005 · resultPageMode + customMessages cross the bridge as strings
     // and a nested object. Unknown values fall back to the SDK default
     // (.detailed) so a stale dashboard setting can't crash the bridge.
