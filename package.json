@@ -1,6 +1,6 @@
 {
   "name": "@koraidv/react-native",
-  "version": "1.9.6",
+  "version": "1.9.7",
   "description": "Kora IDV Identity Verification SDK for React Native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
