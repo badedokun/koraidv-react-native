@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.swift_version = "5.7"
 
   s.dependency "React-Core"
-  s.dependency "KoraIDV", "~> 1.9"
+  s.dependency "KoraIDV", "~> 1.10"
 
   # New Architecture (TurboModule) support — conditionally adds
   # Fabric and TurboModule dependencies when enabled.

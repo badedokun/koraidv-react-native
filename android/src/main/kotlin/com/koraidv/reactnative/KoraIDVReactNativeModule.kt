@@ -252,14 +252,28 @@ class KoraIDVReactNativeModule(
     // -----------------------------------------------------------------------
 
     /**
-     * Parse hex color string (#RRGGBB) to ARGB Long, or null if invalid.
+     * Parse a hex color string to an ARGB Long, or null if invalid.
+     *
+     * Accepts 3-digit (#RGB), 6-digit (#RRGGBB) and 8-digit (#AARRGGBB) forms —
+     * matching the iOS Color(hex:) parser so the SAME theme value works on both
+     * platforms. Previously only 6-digit was accepted; anything else silently
+     * fell back to the default brand color, so an integrator's 8-digit/shorthand
+     * primaryColor never applied on Android while it worked on iOS
+     * (BanffPay/Olabode 2026-07-04).
      */
     private fun String.hexToLong(): Long? {
         if (this.isEmpty()) return null
-        val hex = this.removePrefix("#")
-        if (hex.length != 6) return null
+        val hex = this.trim().removePrefix("#")
+        val argb = when (hex.length) {
+            3 -> {  // #RGB shorthand -> expand to opaque RRGGBB
+                "FF${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}"
+            }
+            6 -> "FF$hex"   // #RRGGBB -> opaque
+            8 -> hex        // #AARRGGBB (alpha first, same as iOS)
+            else -> return null
+        }
         return try {
-            (0xFF000000 or hex.toLong(16))
+            argb.toLong(16)
         } catch (_: NumberFormatException) {
             null
         }
