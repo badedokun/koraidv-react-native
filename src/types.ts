@@ -349,6 +349,19 @@ export enum KoraErrorCode {
 
   // React Native specific
   NOT_IMPLEMENTED = 'NOT_IMPLEMENTED',
+
+  // Verification decision codes — surfaced on a REJECTED verification (native
+  // decisionCode). Without these, a reject's code fell through to UNKNOWN.
+  REJECTED = 'REJECTED',
+  DOCUMENT_UNREADABLE = 'DOCUMENT_UNREADABLE',
+  FACE_MISMATCH = 'FACE_MISMATCH',
+  LIVENESS_FAILED = 'LIVENESS_FAILED',
+  DOCUMENT_QUALITY = 'DOCUMENT_QUALITY',
+  NAME_MISMATCH = 'NAME_MISMATCH',
+  DOCUMENT_EXPIRED = 'DOCUMENT_EXPIRED',
+  SCORE_LOW = 'SCORE_LOW',
+  EYEWEAR = 'EYEWEAR',
+  DATA_INCONSISTENT = 'DATA_INCONSISTENT',
 }
 
 // ---------------------------------------------------------------------------
@@ -394,6 +407,16 @@ const errorMessages: Record<KoraErrorCode, string> = {
   [KoraErrorCode.UNKNOWN]: 'An unknown error occurred.',
   [KoraErrorCode.USER_CANCELLED]: 'Verification cancelled.',
   [KoraErrorCode.NOT_IMPLEMENTED]: 'This feature is not yet implemented on this platform.',
+  [KoraErrorCode.REJECTED]: 'Verification was not successful. Please try again.',
+  [KoraErrorCode.DOCUMENT_UNREADABLE]: "We couldn't read the photo on your ID. Please retake it flat and well-lit.",
+  [KoraErrorCode.FACE_MISMATCH]: 'Your selfie did not match the photo on your ID.',
+  [KoraErrorCode.LIVENESS_FAILED]: 'Liveness check did not pass. Please follow the on-screen prompts.',
+  [KoraErrorCode.DOCUMENT_QUALITY]: 'The document image quality was too low. Please retake it.',
+  [KoraErrorCode.NAME_MISMATCH]: 'The name did not match. Please check your details.',
+  [KoraErrorCode.DOCUMENT_EXPIRED]: 'The document has expired.',
+  [KoraErrorCode.SCORE_LOW]: 'Verification score too low. Please use a clearer document photo.',
+  [KoraErrorCode.EYEWEAR]: 'Please remove eyewear so your eyes are clearly visible, then retake your selfie.',
+  [KoraErrorCode.DATA_INCONSISTENT]: 'Some details could not be confirmed consistently.',
 };
 
 const recoverySuggestions: Partial<Record<KoraErrorCode, string>> = {
