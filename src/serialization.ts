@@ -47,6 +47,9 @@ export function serializeConfiguration(config: KoraIDVConfiguration): string {
   if (config.timeout !== undefined) {
     payload.timeout = config.timeout;
   }
+  if (config.networkTimeoutSeconds !== undefined) {
+    payload.networkTimeoutSeconds = config.networkTimeoutSeconds;
+  }
   if (config.debugLogging !== undefined) {
     payload.debugLogging = config.debugLogging;
   }

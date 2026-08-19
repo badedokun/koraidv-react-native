@@ -34,6 +34,13 @@ export interface KoraIDVConfiguration {
   /** Session timeout in seconds (default: 600) */
   timeout?: number;
 
+  /**
+   * Per-request network timeout in seconds. Passed through to the native SDK;
+   * omit to use the native env-aware default (60s sandbox / 30s production on
+   * Android; 120s on iOS). Set to override.
+   */
+  networkTimeoutSeconds?: number;
+
   /** Enable debug logging (default: false) */
   debugLogging?: boolean;
 

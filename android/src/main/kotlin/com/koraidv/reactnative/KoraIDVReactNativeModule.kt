@@ -172,6 +172,7 @@ class KoraIDVReactNativeModule(
             livenessMode = livenessMode,
             theme = theme,
             timeout = json.optLong("timeout", 600),
+            networkTimeoutSeconds = if (json.has("networkTimeoutSeconds")) json.optLong("networkTimeoutSeconds") else null,
             debugLogging = json.optBoolean("debugLogging", false),
             resultPageMode = resultPageMode,
             customMessages = customMessages,
